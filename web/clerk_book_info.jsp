@@ -232,36 +232,42 @@
             </div>
         </div>
         <div class="row no-gutter">
+            <div class="col-30 text-r">Book ID：</div>
+            <div class="col-70">
+                ${book_id}
+            </div>
+        </div>
+        <div class="row no-gutter">
             <div class="col-30 text-r">书本名：</div>
-            <div class="col-70">傲慢与偏见</div>
+            <div class="col-70">${book_name}</div>
         </div>
         <div class="row no-gutter">
             <div class="col-30 text-r">ISBN：</div>
-            <div class="col-70">978-7-02-012144-1</div>
+            <div class="col-70">${book_ISBN}</div>
         </div>
         <div class="row no-gutter">
             <div class="col-30 text-r">出版时间：</div>
-            <div class="col-70">2000-01-01 00:00:00</div>
+            <div class="col-70">${output_date}</div>
         </div>
         <div class="row no-gutter">
             <div class="col-30 text-r">作者：</div>
-            <div class="col-70">简·奥斯丁</div>
+            <div class="col-70">${author}</div>
         </div>
         <div class="row no-gutter">
             <div class="col-30 text-r">书本分类： </div>
-            <div class=" col-70">文学类</div>
+            <div class=" col-70">${category}</div>
         </div>
         <div class="row no-gutter">
             <div class="col-30 text-r">单价： </div>
-            <div class="col-70">79.00</div>
+            <div class="col-70">${price}</div>
         </div>
         <div class="row no-gutter">
             <div class="col-30 text-r">出版社： </div>
-            <div class="col-70">上海文艺出版社</div>
+            <div class="col-70">${publisher}</div>
         </div>
         <div class="row no-gutter">
             <div class="col-30 text-r">书本简介： </div>
-            <div class="col-70">本书描写爱情与婚姻，现实真实地反映了当时农村的阶级关系、风俗习惯和社会心理，衬托出十八世纪至十九世纪初英国保守闭塞的乡村生活。</div>
+            <div class="col-70">${introduction}</div>
         </div>
 
         <div class="row no-gutter">
