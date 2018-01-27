@@ -36,7 +36,6 @@ public class Book {
     private String introduction;
     private String publisher;
     private int borrower_id;
-    private double fine;
 
     /**
      * @return the img
@@ -178,33 +177,8 @@ public class Book {
         this.publisher = publisher;
     }
 
-    /**
-     * @return the borrower_id
-     */
-    public int getBorrower_id() {
-        return borrower_id;
-    }
 
-    /**
-     * @param borrower_id the borrower_id to set
-     */
-    public void setBorrower_id(int borrower_id) {
-        this.borrower_id = borrower_id;
-    }
 
-    /**
-     * @return the fine
-     */
-    public double getFine() {
-        return fine;
-    }
-
-    /**
-     * @param fine the fine to set
-     */
-    public void setFine(double fine) {
-        this.fine = fine;
-    }
     
     
     

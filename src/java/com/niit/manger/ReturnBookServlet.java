@@ -5,6 +5,7 @@
  */
 package com.niit.manger;
 
+import com.sun.java.swing.plaf.windows.resources.windows;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -39,12 +40,14 @@ public class ReturnBookServlet extends HttpServlet {
             System.out.println("=================================");
             //传递的参数id为book_id
             //变更book表
-            Book books = ms.ReturnBook(Integer.valueOf(request.getParameter("id")));
+            Book books = ms.ReturnBook(Integer.valueOf(request.getParameter("book_id")));
             //变更ISBN表
-           ISBN isbns=ms.ReturnISBN(request.getParameter("book_name"));
+            ISBN isbns = ms.ReturnISBN(request.getParameter("book_name"));
             //变更borrow表
-           Borrow borrows= ms.ReturnBorrow(Integer.valueOf(request.getParameter("id")));
-
+            Borrow borrows = ms.ReturnBorrow(Integer.valueOf(request.getParameter("book_id")));
+            String book_nameString = request.getParameter("book_name");
+            out.print("<script> alert(\"还书成功!\"); window.location.href='clerk_management.jsp';</script>");
+//            window.location.href='/NetBeansLMS/ManageSearchBookServlet?select=标题&keyword='"+book_nameString+";
         }
     }
 

@@ -1,159 +1,173 @@
 <%-- 
-    Document   : home
-    Created on : 2018-1-15, 15:39:37
-    Author     : BearKChan
+    Document   : clerk_management
+    Created on : 2018-1-18, 9:10:51
+    Author     : Acer
 --%>
-<%--<%@page import="java.util.ArrayList"%><%@page import="com.niit.user.ISBN"%>
 
-<%
-    ArrayList<ISBN> list = (ArrayList<ISBN>) request.getSession().getAttribute("ISBN");
-%>
---%>
+<%@page import="com.niit.manger.MangerDao"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.niit.manger.Book"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Home Library</title>
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/home.css">
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="wap-font-scale" content="no" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>cleck management page</title>
+        <link rel="stylesheet" type="text/css" href="rcms/www/lasttemp/css/site_global.css?4052507572" />
+        <link rel="stylesheet" type="text/css" href="rcms/www/lasttemp/css/pages.css" id="pagesheet" />
+
+        <link rel="stylesheet" type="text/css" href="rcms/www/lasttemp/css/few_pages.css" />
+        <link rel="icon" href="rcms/www/t_logo.ico" type="image/x-icon" />
+
+
+        <link href="bootstrap4/css/bootstrap.min.css" rel="stylesheet">
+        <script src="bootstrap4/jquery-3.2.1.min.js"></script>
+        <%
+            ArrayList<Book> list = (ArrayList<Book>) request.getSession().getAttribute("book_list");
+            MangerDao md = new MangerDao();
+        %>
+
     </head>
 
     <body>
-        <div style="position:absolute;z-index:-1;width:100%;height:100%;">
-            <img src="assets/images/0.jpg" width="100%" height="100%" />
-        </div>
-        <jsp:include flush="true" page="header.jsp"></jsp:include>
+        <script src="assets/js/jquery-3.2.1.min.js"></script>
+        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/js/jquery-3.2.1/jquery-3.2.1.min.js"></script>
+        <jsp:include flush="true" page="user_box_1.jsp"></jsp:include>
 
 
+
+
+            <div class="channel-title user-title">
+
+                <form>
+
+                    <i class="c-icon ui1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</i>
+                    <label class="ut1">图书馆
+                        <span class="text-blue">管理</span>
+                    </label>
+                </form>
+
+            </div>
 
             <div class="container">
                 <div class="row ">
                     <div class="col-md-2"></div>
 
                     <div class="col-md-8 search" style="margin-top: 50px">
-                        <form action="/NetBeansLMS/UserSearchServlet" method="GET">
-                            <P class="introduction">NIIT图书馆欢迎您</P>
-                            <div class="form_group">
-                                <!-- 下拉菜单 -->
-                                <!-- <div class="btn-group">
-                                    <button type="button" class="btn  dropdown-toggle drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                        style="min-width: 100%">
-                                        标题
-                                        <span class="caret"></span>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li>
-                                            <a href="#">标题</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">ISBN</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">分类</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">作者</a>
-                                        </li>
-                                    </ul>
-                                </div> -->
-                                <select class="btn  dropdown-toggle " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" name="select">
-                                    <option>标题</option>
-                                    <option>ISBN</option>
-                                    <option>分类</option>
-                                </select>
-                                <!-- 下拉菜单end -->
-                                <span class="split"></span>
-                                <input type="text" class=" keybord" name="keyword">
+                        <form method="GET" action="/NetBeansLMS/ManageSearchServlet">
+                            <div class="row no-gutter">
+                                <div class="col-25 text-r"></div>
+                                <div class="input-group mb-3" style="width:550px">
+                                    <select name="select">
+                                        <option>标题</option>
+                                        <option>ISBN</option>
+                                    </select>
+                                    <input type="text" class="form-control" name="keyword" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <input type="submit" class="btn btn-outline-secondary" value="搜索" style="width:100px;">
+                                    </div>
+                                </div>
                             </div>
-                            <input type="submit" class="btn btn-info searchbutton" value="搜索">
                         </form>
 
                     </div>
                     <div class="col-md-2"></div>
                 </div>
-                <div class="row">
-                    <div class="clo-md-2"></div>
-                    <div class="clo-md-8" style="overflow: scroll">
-                        
-                            <table class="table table-sm">
-                            <thead>
-                                <tr>
-                                    <th>Book ID</th>
-                                    <th>书名</th>
-                                    <th>分类</th>
-                                    <th>状态</th>
-                                    <th>User ID</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <form method="post" action="">
-                                <tr>
-                                    <td name="book_id">1</td>
-                                    <td>傲慢与偏见</td>
-                                    <td>文学类</td>
-                                    <td>未借出</td>
-                                    
-                                    <td></td>
-                                    <td>
-                                        <a href="/name?"> </a>
-                                        <button>借阅</button>
-                                    </td>
-                                    <td>
-                                        <button>详细信息</button>
+                <div class="row" style="overflow: auto">
 
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td>2</td>
-                                    <td>傲慢与偏见</td>
-                                    <td>文学类</td>
-                                    <td>已借出</td>
-                                    <td>2</td>
-                                    <td>
-                                        <button disabled="disabled" style="color:red ">已借阅</button>
-                                    </td>
-                                    <td>
-                                        <button>详细信息</button>
-                                    </td>
-                                </tr>
-                            <%--                            <% for (ISBN b : list) { 
-                            %>
+                    <table class="table table-sm">
+                        <thead>
                             <tr>
-                                <td><%=b.getBook_ISBN()%></td>
-                                <td><%=b.getBook_name()%></td>
-                                <td><%=b.getBook_category()%></td>
-                                <td><%=b.getBook_amounts()%></td>
-                                <td><%=b.getBook_remains()%></td>
+                                <th>Book ID</th>
+                                <th>书名</th>
+                                <th>分类</th>
+                                <th>状态</th>
+                                <th>User ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <% for (Book b : list) {
+                        %>
+                        <tr>
+                            <td>
+                                <%=b.getBook_id()%>
+                            </td>
+                            <td>
+                                <%=b.getBook_name()%>
+                            </td>
+                            <td>
+                                <%=b.getCategory()%>
+                            </td>
+                            <%
+                                int state = b.getState();
+                                String stateString = "未借出";
+                                if (state == 1) {
+                                    stateString = "已借出";
+
+                                }
+                            %>
+                            <td>
+                                <%=stateString%>
+                            </td>
+                            <%
+                                int book_id = b.getBook_id();
+
+                                int user_id = md.findBorrowByBookID(book_id);
+
+                                if (user_id == 0) {
+                            %>
+                    <form method="get" action="/NetBeansLMS/BorrowBookServlet">
+                        <td>
+                            <input type="text" name="user_id" >
+                            <input type="text" name="book_id" hidden value="<%=book_id%>">
+                            <input type="text" name="book_name" hidden value="<%=b.getBook_name()%>">
+                        </td>
+                        <td>
+                            <input type="submit" value="借阅">
+
+                        </td>
+                        <td>
+                            <a href="/NetBeansLMS/OutputBookinfoServlet?book_id=<%=book_id%>">详细信息 </a>
+
+                        </td>
+                        <form>
+                            <%
+                            } else {
+
+                            %>
+                            <td>
+                                <input type="text" readonly="true" value="<%=user_id%>">
+                            </td>
+                            <td>
+                                <a style="color: red" href="/NetBeansLMS/ReturnBookServlet?book_id=<%=book_id%>&book_name=<%=b.getBook_name()%>">还书 </a>
+                            </td>
+                            <td>
+                                <a href="/NetBeansLMS/OutputBookinfoServlet?book_id=<%=book_id%>">详细信息 </a>
+
+                            </td>
+                            </td>
+                            <%}%>
+
                             </tr>
                             <% }%>
-                            --%>
-                        </tbody>
-                    </table>
+                            </tbody>
+                            </table>
+
+                            </div>
+                            </div>
 
 
-                </div>
-                <div class="clo-md-2"></div>
-            </div>
-        </div>
+                            </div>
+                            </div>
+
+                            </div>
 
 
-    </div>
+                            </body>
 
-    <div class=" page_copy">
-        <p>
-            版权所有©NIIT图书馆
-        </p>
-    </div>
-    <script src="assets/js/jquery-3.2.1.min.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/js/jquery-3.2.1/jquery-3.2.1.min.js"></script>
-</body>
-
-</html>
+                            </html>

@@ -19,7 +19,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "BorrowBookServlet", urlPatterns = {"/BorrowBookServlet"})
 public class BorrowBookServlet extends HttpServlet {
+
     MangerService ms = new MangerService();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -35,8 +37,16 @@ public class BorrowBookServlet extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             request.setCharacterEncoding("UTF-8");
             //1.变更book表
-            //2.变更ISBN表
+
+
+//            Book books = ms.BorrowBook(Integer.valueOf(request.getParameter("book_id")));
+//            //2.变更ISBN表
+//            String book_nameString = request.getParameter("book_name");
+//            ISBN isbns = ms.BorrowISBN(request.getParameter("book_name"));
             //3.变更borrow表
+            Borrow borrows = ms.BorrowBorrow(Integer.valueOf(request.getParameter("book_id")), Integer.valueOf(request.getParameter("user_id")));
+
+            out.print("<script> alert(\"借书成功!\"); window.location.href='clerk_management.jsp';</script>");
         }
     }
 

@@ -34,7 +34,7 @@ public class OutputBookinfoServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            Book books=ms.OutputBook(Integer.valueOf(request.getParameter("id")));
+            Book books=ms.OutputBook(Integer.valueOf(request.getParameter("book_id")));
             System.out.println(books.getAuthor());
             request.getSession().setAttribute("books", books);
             request.setAttribute("img", books.getImg());

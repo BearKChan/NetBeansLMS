@@ -9,6 +9,7 @@ import com.niit.utils.JDBCUtils;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 public class MangerDao {
 
@@ -151,7 +152,7 @@ public class MangerDao {
                 b = new Borrow();
                 b.setBorrow_id(rs.getInt("borrow_id"));
                 b.setBook_id(rs.getInt("book_id"));
-                b.setUser_id(rs.getInt("uer_id"));
+                b.setUser_id(rs.getInt("user_id"));
                 b.setBorrow_date(rs.getString("borrow_time"));
                 b.setDeadline_time(rs.getString("deadline_time"));
                 b.setDeadline(rs.getInt("deadline"));
@@ -168,6 +169,7 @@ public class MangerDao {
         }
     }
 
+    //还书更新ISBN表
     ISBN ReturnUpdateISBN(String book_name) {
         //1.获得连接
         System.out.println("===========ReturnUpdateISBN=============");
@@ -196,6 +198,52 @@ public class MangerDao {
                 int executeUpdate = ps.executeUpdate();
 
                 System.out.println("===========ReturnUpdateISBN try3=============");
+                isbns = findISBNByID(isbn_id);
+
+            }
+            return isbns;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("还书修改ISBN表失败");
+        } finally {
+            JDBCUtils.close(conn, ps, rs);
+
+        }
+    }
+
+    //借书更新ISBN表
+    ISBN BorrowUpdateISBN(String book_name) {
+        //1.获得连接
+        System.out.println("===========BorrowUpdateISBN=============");
+        Connection conn = JDBCUtils.getConnection();
+        String sql_first = "select book_remains,book_times,isbn_id from isbn_book where book_name=?";
+        String sql_second = "UPDATE isbn_book SET book_remains=?,book_times=?  where book_name=?";
+        int remains, isbn_id, book_times;
+        java.sql.PreparedStatement ps = null;
+        ResultSet rs = null;
+        ISBN isbns = null;
+        try {
+            System.out.println("===========ReturnUpdateISBN try1=============");
+            ps = conn.prepareStatement(sql_first);
+            ps.setString(1, book_name);
+
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                remains = rs.getInt("book_remains");
+                book_times = rs.getInt("book_times");
+                isbn_id = rs.getInt("isbn_id");
+                System.out.println(remains);
+                ++remains;
+                ++book_times;
+                System.out.println("===========BorrowUpdateISBN try2=============");
+                ps = conn.prepareStatement(sql_second);
+                ps.setInt(1, remains);
+                ps.setInt(2, book_times);
+                ps.setString(3, book_name);
+                int executeUpdate = ps.executeUpdate();
+
+                System.out.println("===========BorrowUpdateISBN try3=============");
                 isbns = findISBNByID(isbn_id);
 
             }
@@ -247,6 +295,74 @@ public class MangerDao {
 
     }
 
+    //借书更新Borrow表
+    Borrow BorrowUpdateBorrow(int book_id, int user_id) {
+        System.out.println("===========ReturnUpdateBorrow=============");
+        Connection conn = JDBCUtils.getConnection();
+
+        String sql1 = "select borrow_id from borrow where book_id=?";
+
+        String sql_rule = "select limint_month from rules where rule_id=1";
+        int borrow_id;
+        int deadline;
+        String borrow_time;
+        String deadline_time;
+        String sql_update = "INSERT INTO borrow (book_id,user_id,borrow_time,deadline_time,deadline,borrow_state) VALUES (?,?,?,?,?,?)";
+        java.sql.PreparedStatement ps = null;
+        ResultSet rs = null;
+        Borrow borrows = null;
+        try {
+            
+            ps = conn.prepareStatement(sql_rule);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                deadline = rs.getInt("limint_month");
+                System.out.println("===================="+"deadline:"+deadline+"========================");
+                int y, m, d;
+                Calendar cal = Calendar.getInstance();
+                y = cal.get(Calendar.YEAR);
+                m = cal.get(Calendar.MONTH) + 1;
+                d = cal.get(Calendar.DATE);
+                borrow_time = String.valueOf(y) + "-" + String.valueOf(m) + "-" + String.valueOf(d);
+                if (m + deadline > 12) {
+                    ++y;
+                    m = (m + deadline) % 12;
+                    
+                    System.out.println("===================="+"m:"+m+"========================");
+                    deadline_time = String.valueOf(y) + "-" + String.valueOf(m) + "-" + String.valueOf(d);
+                } else {
+                    deadline_time = String.valueOf(y) + "-" + String.valueOf(m+deadline) + "-" + String.valueOf(d);
+                }
+
+                ps = conn.prepareStatement(sql_update);
+                ps.setInt(1, book_id);
+                ps.setInt(2, user_id);
+                ps.setString(3, borrow_time);
+                ps.setString(4, deadline_time);
+                ps.setInt(5, deadline);
+                ps.setInt(6, 0);
+                int executeUpdate = ps.executeUpdate();
+                ps = conn.prepareStatement(sql1);
+                ps.setInt(1, book_id);
+                rs = ps.executeQuery();
+                if(rs.next())
+                {   
+                    borrow_id = rs.getInt("borrow_id");
+                    borrows = findBorrowByID(borrow_id);
+                }
+            }
+            return borrows;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("借书修改Borrow表失败");
+        } finally {
+            JDBCUtils.close(conn, ps, rs);
+
+        }
+    }
+
+    //还书更新Book表
     Book ReturnUpdateBook(int id) {
         //1.获得连接
         System.out.println("===========ReturnUpdateBook=============");
@@ -276,6 +392,7 @@ public class MangerDao {
         }
     }
 
+    //借书更新Book表
     Book BorrowUpdateBook(int id) {
         //1.获得连接
         System.out.println("===========BorrowUpdateBook=============");
@@ -305,6 +422,7 @@ public class MangerDao {
         }
     }
 
+    //刷新规则
     Rules updateRules(Rules r) {
 
         System.out.println("=======updateRules=========");
@@ -362,4 +480,41 @@ public class MangerDao {
 
         }
     }
+    
+    
+     public int findBorrowByBookID(int book_id) {
+         int user_id=0;
+        //1.获得连接
+        Connection conn = JDBCUtils.getConnection();
+        //2.准备sql
+        String sql = "select user_id from borrow where book_id=? and borrow_state=0";
+
+        java.sql.PreparedStatement ps = null;
+        ResultSet rs = null;
+        Borrow b = null;
+        //3.准备PreparedStatement对象
+        try {
+            ps = conn.prepareStatement(sql);
+            //4.获得参数
+            ps.setInt(1, book_id);
+            //5.执行查询
+            rs = ps.executeQuery();
+
+            //6.处理查询结果返回集,将rs集合中的数据封装到User中去。
+            if (rs.next()) {
+                user_id=rs.getInt("user_id");
+            }
+            return user_id;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("查询Borrow失败");
+        } finally {
+            //7.关闭资源,返回User
+            JDBCUtils.close(conn, ps, rs);
+
+        }
+    }
+    
+    
+    
 }

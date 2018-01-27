@@ -24,6 +24,11 @@ public class MangerService {
         Book books=md.ReturnUpdateBook(id);
         return books;
     }
+    Book BorrowBook(int id)
+    {
+        Book books=md.BorrowUpdateBook(id);
+        return books;
+    }
     
     ISBN ReturnISBN(String book_name)
     {
@@ -31,11 +36,21 @@ public class MangerService {
        ISBN isbns= md.ReturnUpdateISBN(book_name);
        return isbns;
     }
+    ISBN BorrowISBN(String book_name)
+    {
+        ISBN isbns=md.BorrowUpdateISBN(book_name);
+        return isbns;
+    }
     
     Borrow ReturnBorrow(int id)
     {
        Borrow borrows= md.ReturnUpdateBorrow(id);
        return borrows;
+    }
+    Borrow BorrowBorrow(int book_id,int user_id)
+    {
+        Borrow borrows=md.BorrowUpdateBorrow(book_id, user_id);
+        return borrows;
     }
     
     Book OutputBook(int id)
