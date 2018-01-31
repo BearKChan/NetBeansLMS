@@ -133,7 +133,9 @@
                     </div>
                     <div class="col-20"></div>
                     <div class="col-40">
-                        <button type="button" class="btn btn-primary" style="width:100px;">Cancel</button>
+                        <a href="clerk_management.jsp">
+                            <button type="button" class="btn btn-primary" style="width:100px;">取消</button>
+                        </a>
                     </div>
                 </div>
                 <div class="row no-gutter">

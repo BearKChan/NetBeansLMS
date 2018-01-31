@@ -112,11 +112,8 @@
 
     </div>
 
-    <div class=" page_copy">
-        <p>
-            版权所有©NIIT图书馆
-        </p>
-    </div>
+            <jsp:include flush="true" page="footer.jsp"></jsp:include>
+
     <script src="assets/js/jquery-3.2.1.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/jquery-3.2.1/jquery-3.2.1.min.js"></script>

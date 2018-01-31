@@ -116,11 +116,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="page-copy">
-                        <p>
-                            版权所有©NIIT图书馆
-                        </p>
-                    </div>
+
+
                 </div>
 
             </div>
@@ -146,6 +143,7 @@
 
             });
         </script>
+                    <%--<jsp:include flush="true" page="footer.jsp"></jsp:include>--%>
     </body>
 
 </html>

@@ -211,6 +211,8 @@
             });
 
 </script>
+            <jsp:include flush="true" page="footer.jsp"></jsp:include>
+
 </body>
 
 </html>

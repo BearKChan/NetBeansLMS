@@ -77,12 +77,13 @@
 
 
             </div>
+            <jsp:include flush="true" page="footer.jsp"></jsp:include>
 
-            <div class=" page_copy">
+<!--            <div class=" page_copy">
                 <p>
-                    版权所有©NIIT图书馆
+                    <image src="assets/images/NIIT.png" style="width: 100px;height: 30px;"></image>   版权所有©NIIT图书馆
                 </p>
-            </div>
+            </div>-->
             <script src="assets/js/jquery-3.2.1.min.js"></script>
             <script src="assets/js/bootstrap.min.js"></script>
             <script src="${pageContext.request.contextPath}/assets/js/jquery-3.2.1/jquery-3.2.1.min.js"></script>

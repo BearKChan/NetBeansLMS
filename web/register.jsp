@@ -21,43 +21,7 @@
             <div style="position:absolute;z-index:-1;width:100%;height:100%;">
                 <img src="assets/images/0.jpg" width="100%" height="100%" />
             </div>
-            <!-- 导航栏 -->
-            <nav class=" navbar  navbar-inverse navbar-static-top mynavbar">
-                <div class="container">
-                    <div class=" navbar-header ">
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-                            aria-controls="navbar">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="#">NIIT LIBRARY</a>
-                    </div>
-                    <!-- 登陆注册按钮开始 -->
-                    <div class="navbar-collapse collapse navbar-left mynav-fontsize">
-                        <a class="btn btn-success" style="margin-left: 10px;margin-top: 5px;">Login</a>
-                        <a class="btn btn-primary" style="margin-left: 5px;margin-top: 5px;">Register</a>
-                    </div>
-                    <!-- 登陆注册按钮结束 -->
-                    <!-- 导航栏标签开始 -->
-                    <div id="navbar" class="navbar-collapse collapse navbar-right">
-                        <ul class="nav navbar-nav mynav-fontsize">
-                            <li class="active">
-                                <a href="#">Home</a>
-                            </li>
-                            <li>
-                                <a href="#about">About</a>
-                            </li>
-                            <li>
-                                <a href="#contact">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- 导航栏标签结束 -->
-                </div>
-            </nav>
-            <!-- 导航栏end-->
+            <jsp:include flush="true" page="header.jsp"></jsp:include>
 
             <div class="reg_page">
                 <div class="reg_box">
@@ -211,6 +175,8 @@
                     //判断出生日期是否大于现在的日期
                 });
             </script>
+                        <jsp:include flush="true" page="footer.jsp"></jsp:include>
+
         </body>
 
         </html>
